@@ -1,11 +1,12 @@
-variable "cluster_name" {
-  description = "Nombre corto del cluster (ej: gateway o backend)"
+﻿variable "cluster_name" {
+  description = "Nombre del cluster EKS"
   type        = string
 }
 
-variable "vpc_id" {
-  description = "ID de la VPC donde va el cluster"
+variable "cluster_version" {
+  description = "Version de Kubernetes"
   type        = string
+  default     = "1.29"
 }
 
 variable "subnet_ids" {
@@ -13,29 +14,37 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
-variable "node_instance_type" {
-  description = "Tipo de instancia EC2 para los nodos"
-  type        = string
-  default     = "t3.medium"
+variable "instance_types" {
+  description = "Tipos de instancia EC2 para los nodos del node group"
+  type        = list(string)
+  default     = ["t3.medium"]
 }
 
-variable "node_desired_size" {
-  type    = number
-  default = 1
+variable "desired_size" {
+  description = "Numero deseado de nodos"
+  type        = number
+  default     = 1
 }
 
-variable "node_min_size" {
-  type    = number
-  default = 1
+variable "min_size" {
+  description = "Numero minimo de nodos"
+  type        = number
+  default     = 1
 }
 
-variable "node_max_size" {
-  type    = number
-  default = 2
+variable "max_size" {
+  description = "Numero maximo de nodos"
+  type        = number
+  default     = 2
 }
 
 variable "additional_security_group_ids" {
   description = "Security groups adicionales para el node group"
   type        = list(string)
   default     = []
+}
+variable "vpc_id" {
+  description = "ID de la VPC donde se despliega el cluster"
+  type        = string
+  default     = null
 }
