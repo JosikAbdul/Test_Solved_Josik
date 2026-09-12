@@ -38,7 +38,7 @@ resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOn
 resource "aws_eks_cluster" "this" {
   name     = "eks-${var.cluster_name}"
   role_arn = data.aws_iam_role.cluster.arn
-  version  = var.cluster_version
+  
 
   vpc_config {
     subnet_ids              = var.subnet_ids

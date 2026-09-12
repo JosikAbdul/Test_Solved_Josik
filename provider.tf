@@ -6,6 +6,13 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "s3" {
+    bucket  = "rapyd-sentinel-tfstate-721500739616"
+    key     = "rapyd-sentinel/terraform.tfstate"
+    region  = "eu-central-1"
+    encrypt = true
+  }
 }
 
 provider "aws" {
