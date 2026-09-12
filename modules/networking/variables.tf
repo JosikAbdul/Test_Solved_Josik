@@ -13,9 +13,9 @@ variable "azs" {
   type        = list(string)
 }
 
-variable "public_subnet_cidr" {
-  description = "CIDR de la subred pública (solo para el NAT Gateway)"
-  type        = string
+variable "public_subnet_cidrs" {
+  description = "Lista de CIDRs para las subredes publicas (una por AZ, para el Load Balancer)"
+  type        = list(string)
 }
 
 variable "private_subnet_cidrs" {

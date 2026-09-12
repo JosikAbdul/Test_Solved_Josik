@@ -3,6 +3,14 @@ resource "aws_vpc_peering_connection" "gateway_to_backend" {
   peer_vpc_id = module.vpc_backend.vpc_id
   auto_accept = true
 
+  requester {
+    allow_remote_vpc_dns_resolution = true
+  }
+
+  accepter {
+    allow_remote_vpc_dns_resolution = true
+  }
+
   tags = {
     Name = "gateway-to-backend-peering"
   }
