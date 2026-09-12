@@ -2,11 +2,11 @@
 # Data Sources for Existing IAM Roles
 # ------------------------------------------------------------------------------
 data "aws_iam_role" "cluster" {
-  name = "${var.cluster_name}-role"
+  name = "eks-${var.cluster_name}-cluster-role"
 }
 
 data "aws_iam_role" "node" {
-  name = "${var.cluster_name}-node-role"
+  name = "eks-${var.cluster_name}-node-role"
 }
 
 # ------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOn
 # EKS Cluster
 # ------------------------------------------------------------------------------
 resource "aws_eks_cluster" "this" {
-  name     = var.cluster_name
+  name     = "eks-${var.cluster_name}"
   role_arn = data.aws_iam_role.cluster.arn
   version  = var.cluster_version
 
@@ -56,7 +56,7 @@ resource "aws_eks_cluster" "this" {
 # ------------------------------------------------------------------------------
 resource "aws_eks_node_group" "this" {
   cluster_name    = aws_eks_cluster.this.name
-  node_group_name = "${var.cluster_name}-nodes"
+  node_group_name = "eks-${var.cluster_name}-nodes"
   node_role_arn   = data.aws_iam_role.node.arn
   subnet_ids      = var.subnet_ids
 
